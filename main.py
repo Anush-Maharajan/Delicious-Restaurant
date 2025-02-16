@@ -54,7 +54,7 @@ def loginRetry():
 
 def welcomeUser(name, role):
     global sendingData
-    print(f"Welcome {name.capitalize()}! You are being redirected to your role page!\nPLease wait...\n")
+    print(f"\nWelcome {name.capitalize()}! You are being redirected to your role page!\nPLease wait...\n")
     match role:
         case "admin":
             Administrator.home_layer(sendingData)

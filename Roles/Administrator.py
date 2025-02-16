@@ -3,7 +3,7 @@ import os
 
 def handle_manage(receivedData):
     userData = enhancer.give_User_list()
-    print(" ".join(userData))
+    print((userData))
     pass
 
 def handle_reports(receivedData):

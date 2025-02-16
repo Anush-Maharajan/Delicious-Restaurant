@@ -12,8 +12,8 @@ def give_User_list():
     userData = []
     with open("user.txt", "r") as file:
         for row in file.readlines(): 
-            id, prev_name, actual_password, role = row.strip().split(',')
-            userData.append([id, prev_name, actual_password, role])
+            id, prev_name, email, actual_password, role = row.strip().split(',')
+            userData.append([id, prev_name, email, actual_password, role])
 
     return userData
 
