@@ -2,7 +2,8 @@ import enhancer
 import os
 
 def handle_manage(receivedData):
-    
+    userData = enhancer.give_User_list()
+    print(" ".join(userData))
     pass
 
 def handle_reports(receivedData):
@@ -16,6 +17,7 @@ def handle_feedback(receivedData):
 def handle_profile(receivedData):
     print("What changes do you want to make?")
     print("1. Change name.")
+    print("2. Change email.")
     print("2. Change password.")
     promptInput = input("\nEnter the number --> ")
     handle_change[promptInput](receivedData)
@@ -75,7 +77,7 @@ handle_change = {
 def home_layer(receivedData):
     enhancer.waitingFunction()
     while True:
-        print(f"Welcome {receivedData[1].capitalize()}, What would you like to do?\n")
+        print(f"Welcome {receivedData[1].title()}, What would you like to do?\n")
         print("1. Manage staffs - Manager, Chef (Add, Edit, Delete)")
         print("2. View sales report based on month, chef etc.")
         print("3. View feedback sent by customers.")

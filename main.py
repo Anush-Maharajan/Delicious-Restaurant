@@ -17,20 +17,20 @@ sendingData = []
 
 # Starting code block that will execute
 def login_Main():
-    login_UserID = input("Login: ")
+    login_email = input("Email: ")
     login_Password = input("Password: ")
-    LoginSystem(login_UserID, login_Password)
+    LoginSystem(login_email, login_Password)
 
-def LoginSystem(userID, password):
+def LoginSystem(email, password):
     global loggedIn, loginAttempt, sendingData
 
     userData = enhancer.give_User_list()
         
     for user in userData:
-        if userID == user[0] and password == user[2]:
+        if email == user[2] and password == user[3]:
             global sendingData
             sendingData = user
-            welcomeUser(user[1],user[3])
+            welcomeUser(user[1],user[4])
             loggedIn = True
         
     if not loggedIn:
@@ -47,8 +47,8 @@ def loginRetry():
     global loginAttempt
     loginAttempt+=1
 
-    print("\nInvalid UserID or Password\nPlease Enter the login ID and password again\n")
-    userID = input("Login ID: ")
+    print("\nInvalid UserID or Password\nPlease Enter the email and password again\n")
+    userID = input("Email: : ")
     userPassword = input("Password: ")
     LoginSystem(userID, userPassword)
 
@@ -68,5 +68,5 @@ def welcomeUser(name, role):
             print("\nIt seems you do not have a role.\nPlease inquire the manager about it.\n")
 
 if __name__ == "__main__":
-    print("Welcome to Delicious Restaurant.\nPlease enter login username and password\n")
+    print("Welcome to Delicious Restaurant.\nPlease enter login email and password\n")
     login_Main()
