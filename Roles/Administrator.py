@@ -1,4 +1,5 @@
 import UTILs.enhancer as enhancer
+from UTILs.updateProfile import UpdateProfile
 import os
 
 def handle_manage(receivedData):
@@ -44,55 +45,6 @@ def handle_feedback(receivedData):
     with open("feedbacks.txt", "r") as file:
         pass
 
-def handle_profile(receivedData):
-    print("What changes do you want to make?")
-    print("1. Change name.")
-    print("2. Change email.")
-    print("2. Change password.")
-    promptInput = input("\nEnter the number --> ")
-    handle_change[promptInput](receivedData)
-
-def change_name(receivedData):
-    userID, name, email, password, role = receivedData
-    changeName = input("Enter the name to change: ")
-    confirmation = input("Are you sure you want to change the name?\n[y/n] --> ")
-    if changeName and confirmation.lower() == "y":
-    
-        userData = enhancer.give_User_list()
-
-        for user in userData:
-            if userID == user[0]:
-                user[1] = changeName
-
-        enhancer.update_User_list(userData)
-
-        print("\nName Changed Sucessfully!\n")
-    else:
-        print("Name change is cancelled")
-            
-
-def change_password(receivedData):
-    userID, name, email, password, role = receivedData
-    old_password = input("Enter the old password: ")
-    new_password = input("Enter the new password: ")
-    if password == old_password and new_password:
-        userData = enhancer.give_User_list()
-        for user in userData:
-            if userID == user[2]:
-                user[2] = new_password
-        
-        enhancer.update_User_list(userData)
-        
-        print("password change Sucessful!")
-    
-    else:
-        print("Wrong password or invalid new password")
-
-handle_change = {
-    "1": change_name,
-    "2": change_password
-}
-
 def handle_exit(receivedData):
     os._exit(0)
 
@@ -100,7 +52,7 @@ handleFunctions = {
     "1": handle_manage,
     "2": handle_reports,
     "3": handle_feedback,
-    "4": handle_profile,
+    "4": UpdateProfile,
     "5": handle_exit
 }
 

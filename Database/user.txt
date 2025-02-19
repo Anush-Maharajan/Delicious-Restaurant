@@ -1,4 +1,4 @@
 id,name,email,password,role
-1,Anush,anush@gmail.com,1234,admin
+1,Anush,anush@gmail.com,123,admin
 2,biraj,biraj@gmail.com,12,chef
 32,Chad,chad@gmail.com,qwerty,admin

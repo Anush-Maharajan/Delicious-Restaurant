@@ -10,7 +10,7 @@ def waitingFunction():
 
 def give_User_list():
     userData = []
-    with open("user.txt", "r") as file:
+    with open("Database/user.txt", "r") as file:
         for row in file.readlines(): 
             id, prev_name, email, actual_password, role = row.strip().split(',')
             userData.append([id, prev_name, email, actual_password, role])
@@ -18,6 +18,6 @@ def give_User_list():
     return userData
 
 def update_User_list(userData):
-    with open("user.txt", "w") as file:
+    with open("Database/user.txt", "w") as file:
         for user in userData:
             file.write(",".join(user) + "\n")
