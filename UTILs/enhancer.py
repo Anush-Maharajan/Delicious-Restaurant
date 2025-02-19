@@ -12,7 +12,7 @@ def give_User_list():
     userData = []
     with open("Database/user.txt", "r") as file:
         for row in file.readlines(): 
-            id, prev_name, email, actual_password, role = row.strip().split(',')
+            id, prev_name, email, actual_password, role = row.strip().split(';')
             userData.append([id, prev_name, email, actual_password, role])
 
     return userData
@@ -20,13 +20,13 @@ def give_User_list():
 def update_User_list(userData):
     with open("Database/user.txt", "w") as file:
         for user in userData:
-            file.write(",".join(user) + "\n")
+            file.write(";".join(user) + "\n")
 
 def userID_increment():
     with open("Database/user.txt", "r") as file:
         lines = file.readlines()
         lastLine = lines[-1] if lines else ""
-        lastID = int(lastLine.strip().split(",")[0]) + 1
+        lastID = int(lastLine.strip().split(";")[0]) + 1
 
     return lastID
 

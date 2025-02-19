@@ -9,7 +9,7 @@ def UpdateProfile(receivedData):
     handle_change[promptInput](receivedData)
 
 def change_name(receivedData):
-    userID, name, email, password, role = receivedData
+    userID = receivedData[0]
     changeName = input("Enter the name to change: ")
     confirmation = input("Are you sure you want to change the name?\n[y/n] --> ")
     if changeName and confirmation.lower() == "y":
@@ -28,7 +28,7 @@ def change_name(receivedData):
             
 
 def change_password(receivedData):
-    userID, name, email, password, role = receivedData
+    userID, password= receivedData[0], receivedData[3]
     old_password = input("Enter the old password: ")
     new_password = input("Enter the new password: ")
     if password == old_password and new_password:

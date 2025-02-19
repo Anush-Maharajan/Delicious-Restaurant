@@ -32,6 +32,7 @@ def LoginSystem(email, password):
             sendingData = user
             welcomeUser(user[1],user[4])
             loggedIn = True
+            break
         
     if not loggedIn:
         if loginAttempt >= 3:
