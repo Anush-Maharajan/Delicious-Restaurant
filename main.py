@@ -8,7 +8,7 @@ import Roles.Administrator as Administrator
 import Roles.Manager as Manager
 import Roles.Chef as Chef
 import Roles.Customer as Customer
-import enhancer
+import UTILs.enhancer as enhancer
 
 userData = []
 loginAttempt = 1

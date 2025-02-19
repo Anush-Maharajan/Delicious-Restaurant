@@ -1,10 +1,40 @@
-import enhancer
+import UTILs.enhancer as enhancer
 import os
 
 def handle_manage(receivedData):
+    userChoice = input("\nWhat do you want to do?\n")
+    print("1. Show all user data.")
+    print("2. Edit User Data.")
+    print("3. Add User Data.")
+    print("4. Delete User Data.")
+
+    if userChoice:
+        handle_data[userChoice]()
+    else:
+        print("Error Occured: Invalid option")
+   
+def data_show():
     userData = enhancer.give_User_list()
-    print((userData))
+    print("\nDisplaying all the data users:\n")
+    for user in userData:
+        print("\t".join(user))
+
+
+def data_add():
     pass
+
+def data_edit():
+    pass
+
+def data_delete():
+    pass
+
+handle_data = {
+    "1": data_show,
+    "2": data_add,
+    "3": data_edit,
+    "4": data_delete
+}
 
 def handle_reports(receivedData):
 
@@ -22,19 +52,8 @@ def handle_profile(receivedData):
     promptInput = input("\nEnter the number --> ")
     handle_change[promptInput](receivedData)
 
-def handle_exit(receivedData):
-    os._exit(0)
-
-handleFunctions = {
-    "1": handle_manage,
-    "2": handle_reports,
-    "3": handle_feedback,
-    "4": handle_profile,
-    "5": handle_exit
-}
-
 def change_name(receivedData):
-    userID, name, password, role = receivedData
+    userID, name, email, password, role = receivedData
     changeName = input("Enter the name to change: ")
     confirmation = input("Are you sure you want to change the name?\n[y/n] --> ")
     if changeName and confirmation.lower() == "y":
@@ -53,7 +72,7 @@ def change_name(receivedData):
             
 
 def change_password(receivedData):
-    userID, name, password, role = receivedData
+    userID, name, email, password, role = receivedData
     old_password = input("Enter the old password: ")
     new_password = input("Enter the new password: ")
     if password == old_password and new_password:
@@ -74,10 +93,21 @@ handle_change = {
     "2": change_password
 }
 
+def handle_exit(receivedData):
+    os._exit(0)
+
+handleFunctions = {
+    "1": handle_manage,
+    "2": handle_reports,
+    "3": handle_feedback,
+    "4": handle_profile,
+    "5": handle_exit
+}
+
 def home_layer(receivedData):
     enhancer.waitingFunction()
     while True:
-        print(f"Welcome {receivedData[1].title()}, What would you like to do?\n")
+        print(f"\nWelcome {receivedData[1].title()}, What would you like to do?\n")
         print("1. Manage staffs - Manager, Chef (Add, Edit, Delete)")
         print("2. View sales report based on month, chef etc.")
         print("3. View feedback sent by customers.")
