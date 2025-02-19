@@ -21,3 +21,14 @@ def update_User_list(userData):
     with open("Database/user.txt", "w") as file:
         for user in userData:
             file.write(",".join(user) + "\n")
+
+def userID_increment():
+    with open("Database/user.txt", "r") as file:
+        lines = file.readlines()
+        lastLine = lines[-1] if lines else ""
+        lastID = int(lastLine.strip().split(",")[0]) + 1
+
+    return lastID
+
+def InvalidOption():
+    print("Error Occured: enter a valid option")
