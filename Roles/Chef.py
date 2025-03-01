@@ -43,3 +43,4 @@ def home_layer(receivedData):
     print("1. View Order.")
     print("2. Add Ingredient.")
     print("3. Edit Ingredient.")
+    print("4. Delete Ingredient.")
