@@ -41,3 +41,4 @@ def home_layer(receivedData):
     enhancer.waitingFunction()
     print(f"Welcome {receivedData[1]}! What would you like to do?\n")
     print("1. View Order.")
+    print("2. Add Ingredient.")
