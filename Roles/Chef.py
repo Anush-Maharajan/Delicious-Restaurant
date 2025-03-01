@@ -1,6 +1,8 @@
+import UTILs.enhancer as enhancer
+
 order = []
-ingredient=[]
-user_profile=[]
+ingredient = []
+user_profile = []
 
 #View order placed by customer
 def view_order():
@@ -36,4 +38,6 @@ def delete_ingredient(ingredient_id):
         print(f"Ingredient ID {ingredient_id} not found")
 
 def home_layer(receivedData):
-    pass
+    enhancer.waitingFunction()
+    print(f"Welcome {receivedData[1]}! What would you like to do?\n")
+    print("1. View Order.")
