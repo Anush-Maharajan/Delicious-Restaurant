@@ -169,8 +169,10 @@ def home_layer(receivedData):
         print("3. View feedback sent by customers.")
         print("4. Update your own profile.")
         print("5. Logout and exit.")
+
         userInput = input("\nEnter the number --> ")
-        if int(userInput) <= 5:
+
+        if handleFunctions.get(userInput, None):
             handleFunctions[userInput](receivedData)
         else:
             enhancer.InvalidOption()

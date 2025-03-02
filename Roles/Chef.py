@@ -37,10 +37,21 @@ def delete_ingredient(ingredient_id):
     else:
         print(f"Ingredient ID {ingredient_id} not found")
 
+handleFunctions = {
+
+}
 def home_layer(receivedData):
     enhancer.waitingFunction()
-    print(f"Welcome {receivedData[1]}! What would you like to do?\n")
-    print("1. View Order.")
-    print("2. Add Ingredient.")
-    print("3. Edit Ingredient.")
-    print("4. Delete Ingredient.")
+    while True:
+        print(f"Welcome {receivedData[1]}! What would you like to do?\n")
+        print("1. View Order.")
+        print("2. Add Ingredient.")
+        print("3. Edit Ingredient.")
+        print("4. Delete Ingredient.")
+        print("5. Logout and Exit.")
+        userInput = input("Enter the number of the option/n--> ")
+
+        if handler:= handleFunctions.get(userInput, None):
+            handler()
+        else:
+            enhancer.InvalidOption()
