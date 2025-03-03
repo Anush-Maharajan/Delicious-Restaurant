@@ -131,6 +131,3 @@ def main():
     # View updated order status
     print("\nUpdated Order:")
     view_order(order_id)
-
-if _name_ == "_main_":
-    main()
