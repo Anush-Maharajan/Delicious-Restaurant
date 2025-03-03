@@ -1,0 +1,2 @@
+foodID, name, price
+1, Burger, $20

@@ -172,7 +172,7 @@ def home_layer(receivedData):
 
         userInput = input("\nEnter the number --> ")
 
-        if handleFunctions.get(userInput, None):
-            handleFunctions[userInput](receivedData)
+        if handler :=handleFunctions.get(userInput, None):
+           handler(receivedData)
         else:
             enhancer.InvalidOption()

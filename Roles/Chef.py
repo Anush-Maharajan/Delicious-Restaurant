@@ -1,4 +1,5 @@
 import UTILs.enhancer as enhancer
+import os
 
 order = []
 ingredient = []
@@ -6,7 +7,11 @@ user_profile = []
 
 #View order placed by customer
 def view_order():
-    return order
+    with open("Database/order.txt", "r") as file:
+        orders = file.readlines()
+        for order in orders:
+            userID, foodItem, status = order
+            print(f"{userID}\t{foodItem}\t{status}")
 
 #Update orders as "In Progress" or "Completed.” 
 def update_order_status(order_id, new_status): 
@@ -37,8 +42,15 @@ def delete_ingredient(ingredient_id):
     else:
         print(f"Ingredient ID {ingredient_id} not found")
 
-handleFunctions = {
+def handle_exit(receivedData):
+    os._exit(0)
 
+handleFunctions = {
+    "1": view_order,
+    "2": update_order_status,
+    "3": edit_ingredient,
+    "4": delete_ingredient,
+    "5": handle_exit
 }
 def home_layer(receivedData):
     enhancer.waitingFunction()
