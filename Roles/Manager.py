@@ -1,3 +1,5 @@
+from UTILs.updateProfile import UpdateProfile
+
 def manage_customers():
     # Function to manage customers (Add, Edit, Delete).
     while True:
@@ -27,9 +29,9 @@ def add_customer():
     email = input("Enter Customer Email: ")
     phone = input("Enter Customer Phone: ")
 
-    # Save customer data to a text file (customers.txt)
-    with open("customers.txt", "a") as file:
-        file.write(f"{customer_id},{name},{email},{phone}\n")
+    # Save customer data to a text file (Database/customers.txt)
+    with open("Database/customers.txt", "a") as file:
+        file.write(f"{customer_id};{name};{email};{phone}\n")
     print("Customer added successfully!")
 
 def edit_customer():
@@ -40,9 +42,9 @@ def edit_customer():
 
     # Load existing customers from the file
     try:
-        with open("customers.txt", "r") as file:
+        with open("Database/customers.txt", "r") as file:
             for line in file:
-                customers.append(line.strip().split(","))
+                customers.append(line.strip().split(";"))
     except FileNotFoundError:
         print("No customers found.")
         return
@@ -64,9 +66,9 @@ def edit_customer():
         return
 
     # Save updated customers back to the file
-    with open("customers.txt", "w") as file:
+    with open("Database/customers.txt", "w") as file:
         for customer in customers:
-            file.write(",".join(customer) + "\n")
+            file.write(";".join(customer) + "\n")
     print("Customer updated successfully!")
 
 def delete_customer():
@@ -77,9 +79,9 @@ def delete_customer():
 
     # Load existing customers from the file
     try:
-        with open("customers.txt", "r") as file:
+        with open("Database/customers.txt", "r") as file:
             for line in file:
-                customers.append(line.strip().split(","))
+                customers.append(line.strip().split(";"))
     except FileNotFoundError:
         print("No customers found.")
         return
@@ -99,9 +101,9 @@ def delete_customer():
         return
 
     # Save updated customers back to the file
-    with open("customers.txt", "w") as file:
+    with open("Database/Database/customers.txt", "w") as file:
         for customer in updated_customers:
-            file.write(",".join(customer) + "\n")
+            file.write(";".join(customer) + "\n")
     print("Customer deleted successfully!")
 
 def manage_menu():
@@ -135,7 +137,7 @@ def add_menu_item():
 
     # Save menu item to a text file (menu.txt)
     with open("menu.txt", "a") as file:
-        file.write(f"{item_id},{name},{category},{price}\n")
+        file.write(f"{item_id};{name};{category};{price}\n")
     print("Menu item added successfully!")
 
 def edit_menu_item():
@@ -148,7 +150,7 @@ def edit_menu_item():
     try:
         with open("menu.txt", "r") as file:
             for line in file:
-                menu_items.append(line.strip().split(","))
+                menu_items.append(line.strip().split(";"))
     except FileNotFoundError:
         print("No menu items found.")
         return
@@ -172,7 +174,7 @@ def edit_menu_item():
     # Save updated menu items back to the file
     with open("menu.txt", "w") as file:
         for item in menu_items:
-            file.write(",".join(item) + "\n")
+            file.write(";".join(item) + "\n")
     print("Menu item updated successfully!")
 
 def delete_menu_item():
@@ -185,7 +187,7 @@ def delete_menu_item():
     try:
         with open("menu.txt", "r") as file:
             for line in file:
-                menu_items.append(line.strip().split(","))
+                menu_items.append(line.strip().split(";"))
     except FileNotFoundError:
         print("No menu items found.")
         return
@@ -207,7 +209,7 @@ def delete_menu_item():
     # Save updated menu items back to the file
     with open("menu.txt", "w") as file:
         for item in updated_menu:
-            file.write(",".join(item) + "\n")
+            file.write(";".join(item) + "\n")
     print("Menu item deleted successfully!")
 
 def view_ingredient_requests():
@@ -220,22 +222,15 @@ def view_ingredient_requests():
     except FileNotFoundError:
         print("No ingredient requests found.")
 
-def update_profile():
-    # Function to update manager's profile.
-    print("\n=== Update Profile ===")
-    new_password = input("Enter new password: ")
-    # Save updated password to the users.txt file (you can implement this based on your system)
-    print("Profile updated successfully!")
-
 def home_layer():
     # Main menu for the Manager.
     while True:
         print("\n=== Manager Dashboard ===")
-        print("1. Manage Customers")
-        print("2. Manage Menu")
-        print("3. View Ingredient Requests")
-        print("4. Update Profile")
-        print("5. Logout")
+        print("1. Manage Customers.")
+        print("2. Manage Menu.")
+        print("3. View Ingredient Requests.")
+        print("4. Update Profile.")
+        print("5. Logout.")
         choice = input("Enter your choice: ")
 
         if choice == "1":
@@ -245,7 +240,7 @@ def home_layer():
         elif choice == "3":
             view_ingredient_requests()
         elif choice == "4":
-            update_profile()
+            UpdateProfile()
         elif choice == "5":
             print("Logging out...")
             break
