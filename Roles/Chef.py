@@ -100,7 +100,7 @@ handleFunctions = {
 }
 
 def home_layer(receivedData):
-    # enhancer.waitingFunction()
+    enhancer.waitingFunction()
     while True:
         print(f"Welcome {receivedData[1]}! What would you like to do?\n")
         print("1. View Order.")
@@ -112,9 +112,6 @@ def home_layer(receivedData):
         userInput = input("Enter the number of the option\n--> ")
         
         if userInput in handleFunctions:
-            if userInput == "6":
-                handleFunctions[userInput](receivedData)
-            else:
-                handleFunctions[userInput]()
+            handleFunctions[userInput]()
         else:
             enhancer.InvalidOption()
