@@ -1,133 +1,73 @@
-# Menu items (represented by a list of dictionaries)
+def load_menu():
+    try:
+        with open("Database/menu.txt", "r") as file:
+            menu = {}
+            for line in file:
+                item, price = line.strip().split(";")
+                menu[item] = float(price)
+            return menu
+    except FileNotFoundError:
+        return {"Pizza": 12.99, "Burger": 8.99, "Pasta": 10.99}
 
-        # Menu should be done using file handling
-menu = [
-    {'id': 1, 'name': 'Burger', 'price': 5.99},
-    {'id': 2, 'name': 'Pizza', 'price': 7.99},
-    {'id': 3, 'name': 'Pasta', 'price': 6.49},
-    {'id': 4, 'name': 'Salad', 'price': 3.99}
-]
+def save_order(order):
+    with open("Database/orders.txt", "a") as file:
+        file.write(f"{UserData[0]};{order};PENDING\n")
 
-# Customers (represented by a dictionary)
-customers = {} # Need to use file handling
+def view_menu():
+    menu = load_menu()
+    print("\nMenu:")
+    for item, price in menu.items():
+        print(f"{item}: ${price}")
 
-# Orders (represented by a list of dictionaries)
-orders = [] # Needs file handling
+def order_food():
+    menu = load_menu()
+    item_name = input("Enter food item to order: ")
+    if item_name in menu:
+        save_order(f"{item_name} (In Progress)")
+        print(f"{item_name} has been added to your order.")
+    else:
+        print("Item not found in the menu.")
 
-# Function to display the menu
-def show_menu():
-    print("Menu:")
-    for item in menu:
-        print(f"{item['id']}. {item['name']} - ${item['price']}")
+def view_order_status():
+    try:
+        with open("orders.txt", "r") as file:
+            orders = file.readlines()
+            if not orders:
+                print("No orders placed yet.")
+                return
+            print("Your orders:")
+            for order in orders:
+                print(f"- {order.strip()}")
+    except FileNotFoundError:
+        print("No orders placed yet.")
 
-# Function to register a customer
-def register_customer(name, email, phone):
-    customer_id = len(customers) + 1
-    customers[customer_id] = {'name': name, 'email': email, 'phone': phone}
-    return customer_id
+def send_feedback():
+    feedback = input("Enter your feedback: ")
+    with open("feedback.txt", "a") as file:
+        file.write(feedback + "\n")
+    print("Thank you for your feedback!")
 
-# Function to update customer profile
+def home_layer(receivedData):
+    global UserData; UserData = receivedData
+    while True:
+        print("\nWelcome to the Restaurant Management System," + receivedData[1])
+        print("1. View Menu")
+        print("2. Order Food")
+        print("3. View Order Status")
+        print("4. Send Feedback")
+        print("5. Exit")
+        choice = input("Enter your choice: ")
         
-        #No need to do update profile
-
-def update_profile(customer_id, name=None, email=None, phone=None):
-    if customer_id in customers:
-        if name:
-            customers[customer_id]['name'] = name
-        if email:
-            customers[customer_id]['email'] = email
-        if phone:
-            customers[customer_id]['phone'] = phone
-        print("Profile updated successfully.")
-    else:
-        print("Customer not found.")
-
-# Function to place an order
-def place_order(customer_id, order_items):
-    total_price = sum([item['price'] for item in order_items])
-    order_id = len(orders) + 1
-    order = {
-        'order_id': order_id,
-        'customer_id': customer_id,
-        'items': order_items,
-        'total_price': total_price,
-        'status': 'Pending'
-    }
-    orders.append(order)
-    return order_id
-
-# Function to view order status
-def view_order(order_id):
-    for order in orders:
-        if order['order_id'] == order_id:
-            print(f"Order ID: {order['order_id']}")
-            print("Items:")
-            for item in order['items']:
-                print(f"- {item['name']}")
-            print(f"Total Price: ${order['total_price']}")
-            print(f"Status: {order['status']}")
+        if choice == "1":
+            view_menu()
+        elif choice == "2":
+            order_food()
+        elif choice == "3":
+            view_order_status()
+        elif choice == "4":
+            send_feedback()
+        elif choice == "5":
+            print("Thank you for using the system!")
             break
-    else:
-        print("Order not found.")
-
-# Function to update order status
-def update_order_status(order_id, status):
-    for order in orders:
-        if order['order_id'] == order_id:
-            order['status'] = status
-            print(f"Order {order_id} status updated to {status}.")
-            break
-    else:
-        print("Order not found.")
-
-# Function to send feedback
-def send_feedback(customer_id, feedback):
-    if customer_id in customers:
-        customer_name = customers[customer_id]['name']
-        print(f"Feedback from {customer_name}: {feedback}")
-    else:
-        print("Customer not found.")
-
-# Function to delete an item from an order
-def delete_item_from_order(order_id, item_id):
-    for order in orders:
-        if order['order_id'] == order_id:
-            order['items'] = [item for item in order['items'] if item['id'] != item_id]
-            order['total_price'] = sum([item['price'] for item in order['items']])
-            print(f"Item {item_id} removed from Order {order_id}.")
-            break
-    else:
-        print("Order not found.")
-
-# Main function to simulate the system
-def main():
-    # Register a customer
-    customer_id = register_customer("John Doe", "john@example.com", "1234567890")
-
-    # Display menu and place an order
-    show_menu()
-    order_items = [menu[0], menu[2]]  # Burger and Pasta
-    order_id = place_order(customer_id, order_items)
-
-    # View order status
-    print("\nOrder Placed:")
-    view_order(order_id)
-
-    # Update order status
-    update_order_status(order_id, "Cooking")
-
-    # Customer updates their profile
-    update_profile(customer_id, name="John Smith", email="john.smith@example.com")
-    print("\nUpdated Profile:")
-    print(customers[customer_id])
-
-    # Send feedback
-    send_feedback(customer_id, "The food was delicious!")
-
-    # Customer deletes an item from the order
-    print("\nDeleting an Item from Order:")
-    delete_item_from_order(order_id, 3)  # Removing Pasta
-
-    # View updated order status
-    print("\nUpdated Order:")
-    view_order(order_id)
+        else:
+            print("Invalid choice. Please try again.")

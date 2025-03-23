@@ -1,46 +1,80 @@
 import UTILs.enhancer as enhancer
 import os
 
-order = []
-ingredient = []
-user_profile = []
+ORDER_FILE = "Database/order.txt"
+INGREDIENT_FILE = "Database/ingredients.txt"
 
-#View order placed by customer
 def view_order():
-    with open("Database/order.txt", "r") as file:
+    with open(ORDER_FILE, "r") as file:
         orders = file.readlines()
         for order in orders:
-            userID, foodItem, status = order
+            userID, foodItem, status = order.strip().split(";")
             print(f"{userID}\t{foodItem}\t{status}")
 
-#Update orders as "In Progress" or "Completed.” 
-def update_order_status(order_id, new_status): 
-    if order_id in order:
-        order[order_id]["status"] = new_status
-        print(f"Order {order_id} is now {new_status}")
-    else:
-        print(f"Order {order_id} not found")
+def update_order_status(order_id, new_status):
+    updated_orders = []
+    found = False
+    with open(ORDER_FILE, "r") as file:
+        orders = file.readlines()
+        for order in orders:
+            userID, foodItem, status = order.strip().split(";")
+            if userID == order_id:
+                updated_orders.append(f"{userID};{foodItem};{new_status}\n")
+                found = True
+            else:
+                updated_orders.append(order)
     
-# Add Ingredient
+    if found:
+        with open(ORDER_FILE, "w") as file:
+            file.writelines(updated_orders)
+        print(f"Order {order_id} updated to {new_status}.")
+    
+    else:
+        print(f"Order {order_id} not found.")
+
 def add_ingredient(ingredient_id, name, quantity):
-    ingredient[ingredient_id] = {"name": name, "quantity": quantity}
-    print(f"Added ingredient: {name} with ID {ingredient_id}")  
+    with open(INGREDIENT_FILE, "a") as file:
+        file.write(f"{ingredient_id};{name};{quantity}\n")
+    print(f"Added ingredient: {name} with ID {ingredient_id}.")
 
-#Edit Ingredient
-def edit_ingredient(ingredient_id, name, quantity): 
-    if ingredient_id in ingredient:
-        ingredient[ingredient_id] = {"name": name, "quantity": quantity}
-        print(f"Edited ingredient ID {ingredient_id} to: {name}, quantity: {quantity}")
+def edit_ingredient(ingredient_id, name, quantity):
+    updated_ingredients = []
+    found = False
+    with open(INGREDIENT_FILE, "r") as file:
+        ingredients = file.readlines()
+        for ingredient in ingredients:
+            ing_id, ing_name, ing_quantity = ingredient.strip().split(";")
+            if ing_id == ingredient_id:
+                updated_ingredients.append(f"{ingredient_id};{name};{quantity}\n")
+                found = True
+            else:
+                updated_ingredients.append(ingredient)
+    
+    if found:
+        with open(INGREDIENT_FILE, "w") as file:
+            file.writelines(updated_ingredients)
+        print(f"Edited ingredient ID {ingredient_id}.")
     else:
-        print(f"Ingredient ID {ingredient_id} not found")
+        print(f"Ingredient ID {ingredient_id} not found.")
 
-#Delete Ingredient
 def delete_ingredient(ingredient_id):
-    if ingredient_id in ingredient:
-        del ingredient[ingredient_id]
-        print(f"Deleted ingredient ID {ingredient_id}")
+    updated_ingredients = []
+    found = False
+    with open(INGREDIENT_FILE, "r") as file:
+        ingredients = file.readlines()
+        for ingredient in ingredients:
+            ing_id, _, _ = ingredient.strip().split(";")
+            if ing_id == ingredient_id:
+                found = True
+            else:
+                updated_ingredients.append(ingredient)
+    
+    if found:
+        with open(INGREDIENT_FILE, "w") as file:
+            file.writelines(updated_ingredients)
+        print(f"Deleted ingredient ID {ingredient_id}.")
     else:
-        print(f"Ingredient ID {ingredient_id} not found")
+        print(f"Ingredient ID {ingredient_id} not found.")
 
 def handle_exit(receivedData):
     os._exit(0)
@@ -52,6 +86,7 @@ handleFunctions = {
     "4": delete_ingredient,
     "5": handle_exit
 }
+
 def home_layer(receivedData):
     enhancer.waitingFunction()
     while True:
@@ -62,8 +97,13 @@ def home_layer(receivedData):
         print("4. Delete Ingredient.")
         print("5. Logout and Exit.")
         userInput = input("Enter the number of the option/n--> ")
-
-        if handler:= handleFunctions.get(userInput, None):
-            handler()
+        
+        if userInput == "2":
+            ingredient_id = input("Enter Ingredient ID: ")
+            name = input("Enter Ingredient Name: ")
+            quantity = input("Enter Ingredient Quantity: ")
+            add_ingredient(ingredient_id, name, quantity)
+        elif userInput in handleFunctions:
+            handleFunctions[userInput]()
         else:
             enhancer.InvalidOption()

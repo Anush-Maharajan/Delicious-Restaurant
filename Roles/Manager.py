@@ -27,11 +27,11 @@ def add_customer():
     customer_id = input("Enter Customer ID: ")
     name = input("Enter Customer Name: ")
     email = input("Enter Customer Email: ")
-    phone = input("Enter Customer Phone: ")
+    password = input("Enter Customer Password: ")
 
     # Save customer data to a text file (Database/customers.txt)
-    with open("Database/customers.txt", "a") as file:
-        file.write(f"{customer_id};{name};{email};{phone}\n")
+    with open("Database/user.txt", "a") as file:
+        file.write(f"{customer_id};{name};{email};{password};customer\n")
     print("Customer added successfully!")
 
 def edit_customer():
@@ -42,7 +42,7 @@ def edit_customer():
 
     # Load existing customers from the file
     try:
-        with open("Database/customers.txt", "r") as file:
+        with open("Database/user.txt", "r") as file:
             for line in file:
                 customers.append(line.strip().split(";"))
     except FileNotFoundError:
@@ -57,8 +57,8 @@ def edit_customer():
             print(f"Editing Customer: {customer}")
             name = input("Enter new Name: ")
             email = input("Enter new Email: ")
-            phone = input("Enter new Phone: ")
-            customers[i] = [customer_id, name, email, phone]
+            password = input("Enter new password: ")
+            customers[i] = [customer_id, name, email, password]
             break
 
     if not found:
@@ -66,7 +66,7 @@ def edit_customer():
         return
 
     # Save updated customers back to the file
-    with open("Database/customers.txt", "w") as file:
+    with open("Database/user.txt", "w") as file:
         for customer in customers:
             file.write(";".join(customer) + "\n")
     print("Customer updated successfully!")
@@ -79,7 +79,7 @@ def delete_customer():
 
     # Load existing customers from the file
     try:
-        with open("Database/customers.txt", "r") as file:
+        with open("Database/user.txt", "r") as file:
             for line in file:
                 customers.append(line.strip().split(";"))
     except FileNotFoundError:
@@ -101,7 +101,7 @@ def delete_customer():
         return
 
     # Save updated customers back to the file
-    with open("Database/Database/customers.txt", "w") as file:
+    with open("Database/user.txt", "w") as file:
         for customer in updated_customers:
             file.write(";".join(customer) + "\n")
     print("Customer deleted successfully!")
@@ -136,7 +136,7 @@ def add_menu_item():
     price = input("Enter Item Price: ")
 
     # Save menu item to a text file (menu.txt)
-    with open("menu.txt", "a") as file:
+    with open("Database/menu.txt", "a") as file:
         file.write(f"{item_id};{name};{category};{price}\n")
     print("Menu item added successfully!")
 
@@ -148,7 +148,7 @@ def edit_menu_item():
 
     # Load existing menu items from the file
     try:
-        with open("menu.txt", "r") as file:
+        with open("Database/menu.txt", "r") as file:
             for line in file:
                 menu_items.append(line.strip().split(";"))
     except FileNotFoundError:
@@ -172,7 +172,7 @@ def edit_menu_item():
         return
 
     # Save updated menu items back to the file
-    with open("menu.txt", "w") as file:
+    with open("Database/menu.txt", "w") as file:
         for item in menu_items:
             file.write(";".join(item) + "\n")
     print("Menu item updated successfully!")
@@ -185,7 +185,7 @@ def delete_menu_item():
 
     # Load existing menu items from the file
     try:
-        with open("menu.txt", "r") as file:
+        with open("Database/menu.txt", "r") as file:
             for line in file:
                 menu_items.append(line.strip().split(";"))
     except FileNotFoundError:
@@ -207,7 +207,7 @@ def delete_menu_item():
         return
 
     # Save updated menu items back to the file
-    with open("menu.txt", "w") as file:
+    with open("Database/menu.txt", "w") as file:
         for item in updated_menu:
             file.write(";".join(item) + "\n")
     print("Menu item deleted successfully!")
