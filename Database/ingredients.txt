@@ -1,0 +1,3 @@
+ingID;name;quantity
+1;flour;20 kg
+4;salt;90 kg

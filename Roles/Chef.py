@@ -11,7 +11,9 @@ def view_order():
             userID, foodItem, status = order.strip().split(";")
             print(f"{userID}\t{foodItem}\t{status}")
 
-def update_order_status(order_id, new_status):
+def update_order_status():
+    order_id = input("Enter Order ID: ")
+    new_status = input("Enter New Status: ")
     updated_orders = []
     found = False
     with open(ORDER_FILE, "r") as file:
@@ -32,12 +34,20 @@ def update_order_status(order_id, new_status):
     else:
         print(f"Order {order_id} not found.")
 
-def add_ingredient(ingredient_id, name, quantity):
+def add_ingredient():
+    ingredient_id = input("Enter Ingredient ID: ")
+    name = input("Enter Ingredient Name: ")
+    quantity = input("Enter Ingredient Quantity: ")
+    
     with open(INGREDIENT_FILE, "a") as file:
         file.write(f"{ingredient_id};{name};{quantity}\n")
     print(f"Added ingredient: {name} with ID {ingredient_id}.")
 
-def edit_ingredient(ingredient_id, name, quantity):
+def edit_ingredient():
+    ingredient_id = input("Enter Ingredient ID: ")
+    name = input("Enter New Ingredient Name: ")
+    quantity = input("Enter New Ingredient Quantity: ")
+    
     updated_ingredients = []
     found = False
     with open(INGREDIENT_FILE, "r") as file:
@@ -57,7 +67,8 @@ def edit_ingredient(ingredient_id, name, quantity):
     else:
         print(f"Ingredient ID {ingredient_id} not found.")
 
-def delete_ingredient(ingredient_id):
+def delete_ingredient():
+    ingredient_id = input("Enter Ingredient ID: ")
     updated_ingredients = []
     found = False
     with open(INGREDIENT_FILE, "r") as file:
@@ -76,34 +87,34 @@ def delete_ingredient(ingredient_id):
     else:
         print(f"Ingredient ID {ingredient_id} not found.")
 
-def handle_exit(receivedData):
+def handle_exit():
     os._exit(0)
 
 handleFunctions = {
     "1": view_order,
     "2": update_order_status,
-    "3": edit_ingredient,
-    "4": delete_ingredient,
-    "5": handle_exit
+    "3": add_ingredient,
+    "4": edit_ingredient,
+    "5": delete_ingredient,
+    "6": handle_exit
 }
 
 def home_layer(receivedData):
-    enhancer.waitingFunction()
+    # enhancer.waitingFunction()
     while True:
         print(f"Welcome {receivedData[1]}! What would you like to do?\n")
         print("1. View Order.")
-        print("2. Add Ingredient.")
-        print("3. Edit Ingredient.")
-        print("4. Delete Ingredient.")
-        print("5. Logout and Exit.")
-        userInput = input("Enter the number of the option/n--> ")
+        print("2. Update Order Status.")
+        print("3. Add Ingredient.")
+        print("4. Edit Ingredient.")
+        print("5. Delete Ingredient.")
+        print("6. Logout and Exit.")
+        userInput = input("Enter the number of the option\n--> ")
         
-        if userInput == "2":
-            ingredient_id = input("Enter Ingredient ID: ")
-            name = input("Enter Ingredient Name: ")
-            quantity = input("Enter Ingredient Quantity: ")
-            add_ingredient(ingredient_id, name, quantity)
-        elif userInput in handleFunctions:
-            handleFunctions[userInput]()
+        if userInput in handleFunctions:
+            if userInput == "6":
+                handleFunctions[userInput](receivedData)
+            else:
+                handleFunctions[userInput]()
         else:
             enhancer.InvalidOption()
