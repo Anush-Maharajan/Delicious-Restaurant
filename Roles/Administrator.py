@@ -139,7 +139,7 @@ handle_data = {
 def handle_reports(receivedData):
     print("\nShowing the monthly report of this year.\n")
     with open("Database/reports.txt") as file:
-        file.read()
+        print(file.read())
 
 def handle_feedback(receivedData):
     with open("Database/feedbacks.txt", "r") as file:
@@ -163,8 +163,8 @@ def home_layer(receivedData):
     enhancer.waitingFunction()
     while True:
         print(f"\nWelcome {receivedData[1].title()}, What would you like to do?\n")
-        print("1. Manage staffs - Manager, Chef (Add, Edit, Delete)")
-        print("2. View sales report based on month, chef etc.")
+        print("1. Manage staffs.")
+        print("2. View sales report based on month.")
         print("3. View feedback sent by customers.")
         print("4. Update your own profile.")
         print("5. Logout and exit.")

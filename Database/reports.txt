@@ -1,0 +1,4 @@
+Month       sales
+January     47000
+Febrauary   43000
+March       58000
