@@ -137,10 +137,9 @@ handle_data = {
 }
 
 def handle_reports(receivedData):
-    print("On which basis do you want to look the sales report?")
-    print("1. Monthly basis")
-    print("2. Chef basis")
-    pass
+    print("\nShowing the monthly report of this year.\n")
+    with open("Database/reports.txt") as file:
+        file.read()
 
 def handle_feedback(receivedData):
     with open("Database/feedbacks.txt", "r") as file:
