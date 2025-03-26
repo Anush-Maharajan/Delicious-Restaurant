@@ -1,7 +1,7 @@
 import UTILs.enhancer as enhancer
 import os
 
-ORDER_FILE = "Database/order.txt"
+ORDER_FILE = "Database/orders.txt"
 INGREDIENT_FILE = "Database/ingredients.txt"
 
 def view_order():
@@ -17,14 +17,13 @@ def update_order_status():
     updated_orders = []
     found = False
     with open(ORDER_FILE, "r") as file:
-        orders = file.readlines()
-        for order in orders:
-            userID, foodItem, status = order.strip().split(";")
-            if userID == order_id:
-                updated_orders.append(f"{userID};{foodItem};{new_status}\n")
+        for orders in file.readlines():
+            id, order, status = orders.strip().split(";")
+            if id == order_id:
+                updated_orders.append(f"{id};{order};{new_status}\n")
                 found = True
             else:
-                updated_orders.append(order)
+                updated_orders.append(orders)
     
     if found:
         with open(ORDER_FILE, "w") as file:

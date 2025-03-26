@@ -4,7 +4,7 @@ def load_menu():
             menu = {}
             for line in file:
                 item, price = line.strip().split(";")
-                menu[item] = float(price)
+                menu[item] = price
             return menu
     except FileNotFoundError:
         return {"Pizza": 12.99, "Burger": 8.99, "Pasta": 10.99}
@@ -30,12 +30,8 @@ def order_food():
 
 def view_order_status():
     try:
-        with open("orders.txt", "r") as file:
+        with open("Database/orders.txt", "r") as file:
             orders = file.readlines()
-            if not orders:
-                print("No orders placed yet.")
-                return
-            print("Your orders:")
             for order in orders:
                 print(f"- {order.strip()}")
     except FileNotFoundError:
@@ -43,7 +39,7 @@ def view_order_status():
 
 def send_feedback():
     feedback = input("Enter your feedback: ")
-    with open("feedback.txt", "a") as file:
+    with open("Database/feedbacks.txt", "a") as file:
         file.write(feedback + "\n")
     print("Thank you for your feedback!")
 

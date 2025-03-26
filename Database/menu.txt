@@ -1,5 +1,5 @@
-foodID;name;price
-1;Burger;$20
-2;Pizza;$25
-3;Momo;$18
-4;Roti;$2
+name;price
+Burger;$20
+Pizza;$25
+Momo;$18
+Chowmein;10

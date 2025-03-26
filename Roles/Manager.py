@@ -130,20 +130,18 @@ def manage_menu():
 def add_menu_item():
     # Function to add a new menu item.
     print("\n=== Add Menu Item ===")
-    item_id = input("Enter Item ID: ")
     name = input("Enter Item Name: ")
-    category = input("Enter Item Category: ")
     price = input("Enter Item Price: ")
 
     # Save menu item to a text file (menu.txt)
     with open("Database/menu.txt", "a") as file:
-        file.write(f"{item_id};{name};{category};{price}\n")
+        file.write(f"{name};{price}\n")
     print("Menu item added successfully!")
 
 def edit_menu_item():
     # Function to edit an existing menu item.
     print("\n=== Edit Menu Item ===")
-    item_id = input("Enter Item ID to edit: ")
+    item_name = input("Enter Item name to edit: ")
     menu_items = []
 
     # Load existing menu items from the file
@@ -158,13 +156,12 @@ def edit_menu_item():
     # Find the menu item to edit
     found = False
     for i, item in enumerate(menu_items):
-        if item[0] == item_id:
+        if item[0] == item_name:
             found = True
             print(f"Editing Menu Item: {item}")
             name = input("Enter new Name: ")
-            category = input("Enter new Category: ")
             price = input("Enter new Price: ")
-            menu_items[i] = [item_id, name, category, price]
+            menu_items[i] = [name, price]
             break
 
     if not found:
@@ -180,7 +177,7 @@ def edit_menu_item():
 def delete_menu_item():
     # Function to delete a menu item.
     print("\n=== Delete Menu Item ===")
-    item_id = input("Enter Item ID to delete: ")
+    item_name = input("Enter Item name to delete: ")
     menu_items = []
 
     # Load existing menu items from the file
@@ -196,7 +193,7 @@ def delete_menu_item():
     found = False
     updated_menu = []
     for item in menu_items:
-        if item[0] == item_id:
+        if item[0] == item_name:
             found = True
             print(f"Deleting Menu Item: {item}")
         else:
@@ -214,15 +211,15 @@ def delete_menu_item():
 
 def view_ingredient_requests():
     # Function to view ingredient requests.
-    print("\n=== View Ingredient Requests ===")
+    print("\n=== View Ingredient Requests ===\n")
     try:
-        with open("ingredient_requests.txt", "r") as file:
+        with open("Database/ingredients.txt", "r") as file:
             for line in file:
-                print(line.strip())
+                print(" ".join(line.strip().split(";")))
     except FileNotFoundError:
         print("No ingredient requests found.")
 
-def home_layer():
+def home_layer(receivedData):
     # Main menu for the Manager.
     while True:
         print("\n=== Manager Dashboard ===")
@@ -240,7 +237,7 @@ def home_layer():
         elif choice == "3":
             view_ingredient_requests()
         elif choice == "4":
-            UpdateProfile()
+            UpdateProfile(receivedData)
         elif choice == "5":
             print("Logging out...")
             break

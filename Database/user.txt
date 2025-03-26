@@ -1,5 +1,5 @@
 id;name;email;password;role
 1;Anush;anush@gmail.com;123;admin
-2;biraj;biraj@gmail.com;12;chef
-33;Jane Doe;jane.doe@gmail.com;jane123;Manager
-34;Ellen Joe;ellen.doe@gmail.com;ellen123;Chef
+2;pramish;pramish@gmail.com;pram123;chef
+3;Alex;alex@gmail.com;alex123;Manager
+4;nabin;nabin@gmail.com;nab123;customer
