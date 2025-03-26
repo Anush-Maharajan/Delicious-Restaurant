@@ -1,5 +1,5 @@
 id;name;email;password;role
 1;Anush;anush@gmail.com;123;admin
 2;pramish;pramish@gmail.com;pram123;chef
-3;Alex;alex@gmail.com;alex123;Manager
+3;Alex Maharjan;alex@gmail.com;alex123;Manager
 4;nabin;nabin@gmail.com;nab123;customer
